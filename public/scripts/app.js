@@ -21,6 +21,7 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, IndecisionApp);
     _this = _super.call(this, props);
     _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_assertThisInitialized(_this));
+    _this.handlePick = _this.handlePick.bind(_assertThisInitialized(_this));
     _this.state = {
       options: ['Thing one', 'Thing two', 'Thing three']
     };
@@ -36,17 +37,26 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "handlePick",
+    value: function handlePick() {
+      var options = this.state.options;
+      var randomNum = Math.floor(Math.random() * options.length);
+      alert(options[randomNum]);
+    }
+  }, {
     key: "render",
     value: function render() {
+      var options = this.state.options;
       var title = 'Indecision';
       var subtitle = 'Put your life in the hands of a computer';
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
         title: title,
         subtitle: subtitle
       }), /*#__PURE__*/React.createElement(Action, {
-        hasOptions: this.state.options.length > 0
+        hasOptions: options.length > 0,
+        handlePick: this.handlePick
       }), /*#__PURE__*/React.createElement(Options, {
-        options: this.state.options,
+        options: options,
         handleDeleteOptions: this.handleDeleteOptions
       }), /*#__PURE__*/React.createElement(AddOption, null));
     }
@@ -76,15 +86,10 @@ var Action = /*#__PURE__*/function (_React$Component3) {
     return _super3.apply(this, arguments);
   }
   _createClass(Action, [{
-    key: "handlePick",
-    value: function handlePick() {
-      alert('handlePick');
-    }
-  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-        onClick: this.handlePick,
+        onClick: this.props.handlePick,
         disabled: !this.props.hasOptions
       }, "What should I do?"));
     }
