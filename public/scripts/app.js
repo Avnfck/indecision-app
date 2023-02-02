@@ -24,7 +24,7 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
     _this.handlePick = _this.handlePick.bind(_assertThisInitialized(_this));
     _this.handleAddOption = _this.handleAddOption.bind(_assertThisInitialized(_this));
     _this.state = {
-      options: []
+      options: props.options
     };
     return _this;
   }
@@ -62,10 +62,8 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var options = this.state.options;
-      var title = 'Indecision';
       var subtitle = 'Put your life in the hands of a computer';
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
-        title: title,
         subtitle: subtitle
       }), /*#__PURE__*/React.createElement(Action, {
         hasOptions: options.length > 0,
@@ -80,8 +78,14 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
   }]);
   return IndecisionApp;
 }(React.Component);
+IndecisionApp.defaultProps = {
+  options: []
+};
 var Header = function Header(props) {
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, props.title), /*#__PURE__*/React.createElement("h2", null, props.subtitle));
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, props.title), props.subtitle && /*#__PURE__*/React.createElement("h2", null, props.subtitle));
+};
+Header.defaultProps = {
+  title: 'Indecision'
 };
 var Action = function Action(props) {
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {

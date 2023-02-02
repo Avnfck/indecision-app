@@ -5,16 +5,12 @@ class IndecisionApp extends React.Component {
         this.handlePick = this.handlePick.bind(this);
         this.handleAddOption = this.handleAddOption.bind(this);
         this.state = {
-            options: []
+            options: props.options
         }
     }
 
     handleDeleteOptions() {
-        this.setState(() => {
-            return {
-                options: []
-            }
-        })
+        this.setState(() => ({ options: [] }))
     }
 
     handlePick() {
@@ -30,21 +26,16 @@ class IndecisionApp extends React.Component {
             return 'This option already exist';
         }
 
-        this.setState((prevState) => {
-            return {
-                options: prevState.options.concat(option)
-            }
-        });
+        this.setState((prevState) => ({ options: prevState.options.concat(option) }))
     }
 
     render() {
         const options = this.state.options;
-        const title = 'Indecision';
         const subtitle = 'Put your life in the hands of a computer';
 
         return (
             <div>
-                <Header title={title} subtitle={subtitle} />
+                <Header subtitle={subtitle} />
                 <Action hasOptions={options.length > 0} handlePick={this.handlePick} />
                 <Options options={options} handleDeleteOptions={this.handleDeleteOptions} />
                 <AddOption handleAddOption={this.handleAddOption} />
@@ -53,13 +44,21 @@ class IndecisionApp extends React.Component {
     }
 }
 
+IndecisionApp.defaultProps = {
+    options: []
+}
+
 const Header = (props) => {
     return (
         <div>
             <h1>{props.title}</h1>
-            <h2>{props.subtitle}</h2>
+            {props.subtitle && <h2>{props.subtitle}</h2>}
         </div>
     )
+}
+
+Header.defaultProps = {
+    title: 'Indecision'
 }
 
 const Action = (props) => {
@@ -105,9 +104,7 @@ class AddOption extends React.Component {
 
         const error = this.props.handleAddOption(option);
 
-        this.setState(() => {
-            return { error }
-        })
+        this.setState(() => ({ error }))
     }
 
     render() {
