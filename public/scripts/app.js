@@ -80,83 +80,35 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
   }]);
   return IndecisionApp;
 }(React.Component);
-var Header = /*#__PURE__*/function (_React$Component2) {
-  _inherits(Header, _React$Component2);
-  var _super2 = _createSuper(Header);
-  function Header() {
-    _classCallCheck(this, Header);
-    return _super2.apply(this, arguments);
-  }
-  _createClass(Header, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, this.props.title), /*#__PURE__*/React.createElement("h2", null, this.props.subtitle));
-    }
-  }]);
-  return Header;
-}(React.Component);
-var Action = /*#__PURE__*/function (_React$Component3) {
-  _inherits(Action, _React$Component3);
-  var _super3 = _createSuper(Action);
-  function Action() {
-    _classCallCheck(this, Action);
-    return _super3.apply(this, arguments);
-  }
-  _createClass(Action, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-        onClick: this.props.handlePick,
-        disabled: !this.props.hasOptions
-      }, "What should I do?"));
-    }
-  }]);
-  return Action;
-}(React.Component);
-var Options = /*#__PURE__*/function (_React$Component4) {
-  _inherits(Options, _React$Component4);
-  var _super4 = _createSuper(Options);
-  function Options() {
-    _classCallCheck(this, Options);
-    return _super4.apply(this, arguments);
-  }
-  _createClass(Options, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-        onClick: this.props.handleDeleteOptions
-      }, "Remove All"), this.props.options.map(function (option, index) {
-        return /*#__PURE__*/React.createElement(Option, {
-          key: index,
-          optionText: option
-        });
-      }));
-    }
-  }]);
-  return Options;
-}(React.Component);
-var Option = /*#__PURE__*/function (_React$Component5) {
-  _inherits(Option, _React$Component5);
-  var _super5 = _createSuper(Option);
-  function Option() {
-    _classCallCheck(this, Option);
-    return _super5.apply(this, arguments);
-  }
-  _createClass(Option, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, this.props.optionText);
-    }
-  }]);
-  return Option;
-}(React.Component);
-var AddOption = /*#__PURE__*/function (_React$Component6) {
-  _inherits(AddOption, _React$Component6);
-  var _super6 = _createSuper(AddOption);
+var Header = function Header(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, props.title), /*#__PURE__*/React.createElement("h2", null, props.subtitle));
+};
+var Action = function Action(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+    onClick: props.handlePick,
+    disabled: !props.hasOptions
+  }, "What should I do?"));
+};
+var Options = function Options(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+    onClick: props.handleDeleteOptions
+  }, "Remove All"), props.options.map(function (option, index) {
+    return /*#__PURE__*/React.createElement(Option, {
+      key: index,
+      optionText: option
+    });
+  }));
+};
+var Option = function Option(props) {
+  return /*#__PURE__*/React.createElement("div", null, props.optionText);
+};
+var AddOption = /*#__PURE__*/function (_React$Component2) {
+  _inherits(AddOption, _React$Component2);
+  var _super2 = _createSuper(AddOption);
   function AddOption(props) {
     var _this2;
     _classCallCheck(this, AddOption);
-    _this2 = _super6.call(this, props);
+    _this2 = _super2.call(this, props);
     _this2.handleAddOption = _this2.handleAddOption.bind(_assertThisInitialized(_this2));
     _this2.state = {
       error: undefined
