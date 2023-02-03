@@ -21,6 +21,7 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, IndecisionApp);
     _this = _super.call(this, props);
     _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_assertThisInitialized(_this));
+    _this.handleDeleteOption = _this.handleDeleteOption.bind(_assertThisInitialized(_this));
     _this.handlePick = _this.handlePick.bind(_assertThisInitialized(_this));
     _this.handleAddOption = _this.handleAddOption.bind(_assertThisInitialized(_this));
     _this.state = {
@@ -29,11 +30,37 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
     return _this;
   }
   _createClass(IndecisionApp, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      console.log('fetching data');
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      console.log('saving data');
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      console.log('componentWillUnmount');
+    }
+  }, {
     key: "handleDeleteOptions",
     value: function handleDeleteOptions() {
       this.setState(function () {
         return {
           options: []
+        };
+      });
+    }
+  }, {
+    key: "handleDeleteOption",
+    value: function handleDeleteOption(optionToRemove) {
+      this.setState(function (prevState) {
+        return {
+          options: prevState.options.filter(function (option) {
+            return optionToRemove !== option;
+          })
         };
       });
     }
@@ -70,7 +97,8 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
         handlePick: this.handlePick
       }), /*#__PURE__*/React.createElement(Options, {
         options: options,
-        handleDeleteOptions: this.handleDeleteOptions
+        handleDeleteOptions: this.handleDeleteOptions,
+        handleDeleteOption: this.handleDeleteOption
       }), /*#__PURE__*/React.createElement(AddOption, {
         handleAddOption: this.handleAddOption
       }));
@@ -99,12 +127,17 @@ var Options = function Options(props) {
   }, "Remove All"), props.options.map(function (option, index) {
     return /*#__PURE__*/React.createElement(Option, {
       key: index,
-      optionText: option
+      optionText: option,
+      handleDeleteOption: props.handleDeleteOption
     });
   }));
 };
 var Option = function Option(props) {
-  return /*#__PURE__*/React.createElement("div", null, props.optionText);
+  return /*#__PURE__*/React.createElement("div", null, props.optionText, /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick(e) {
+      props.handleDeleteOption(props.optionText);
+    }
+  }, "remove"));
 };
 var AddOption = /*#__PURE__*/function (_React$Component2) {
   _inherits(AddOption, _React$Component2);
