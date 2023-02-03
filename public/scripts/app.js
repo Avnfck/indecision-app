@@ -25,19 +25,34 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
     _this.handlePick = _this.handlePick.bind(_assertThisInitialized(_this));
     _this.handleAddOption = _this.handleAddOption.bind(_assertThisInitialized(_this));
     _this.state = {
-      options: props.options
+      options: []
     };
     return _this;
   }
   _createClass(IndecisionApp, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log('fetching data');
+      try {
+        var json = localStorage.getItem('options');
+        var options = JSON.parse(json);
+        if (options) {
+          this.setState(function () {
+            return {
+              options: options
+            };
+          });
+        }
+      } catch (e) {
+        //Do nothing at all
+      }
     }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
-      console.log('saving data');
+      if (prevState.options.length !== this.state.options.length) {
+        var json = JSON.stringify(this.state.options);
+        localStorage.setItem('options', json);
+      }
     }
   }, {
     key: "componentWillUnmount",
@@ -106,9 +121,6 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
   }]);
   return IndecisionApp;
 }(React.Component);
-IndecisionApp.defaultProps = {
-  options: []
-};
 var Header = function Header(props) {
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, props.title), props.subtitle && /*#__PURE__*/React.createElement("h2", null, props.subtitle));
 };
@@ -124,7 +136,7 @@ var Action = function Action(props) {
 var Options = function Options(props) {
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
     onClick: props.handleDeleteOptions
-  }, "Remove All"), props.options.map(function (option, index) {
+  }, "Remove All"), props.options.length === 0 && /*#__PURE__*/React.createElement("p", null, "Please add an option to get started!"), props.options.map(function (option, index) {
     return /*#__PURE__*/React.createElement(Option, {
       key: index,
       optionText: option,
@@ -163,6 +175,9 @@ var AddOption = /*#__PURE__*/function (_React$Component2) {
           error: error
         };
       });
+      if (!error) {
+        e.target.elements.option.value = '';
+      }
     }
   }, {
     key: "render",
