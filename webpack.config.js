@@ -16,5 +16,10 @@ export default {
             test: /\.js$/,
             exclude: /node_modules/
         }]
-    }
+    },
+    devtool: 'cheap-module-source-map',
+    devServer: {
+        watchFiles: path.join(__dirname, 'public')
+    },
+    mode: 'development'
 };

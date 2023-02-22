@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
+import { createRoot } from 'react-dom/client';
 import { IndecisionApp } from './components/IndecisionApp.js';
 
-ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
+createRoot(document.getElementById('app')).render(<IndecisionApp />);

@@ -4,18 +4,14 @@ import { Header } from './Header.js';
 import { AddOption } from './AddOption.js';
 import { Options } from './Options.js'
 import { Action } from './Action.js';
+import { OptionModal } from './OptionModal.js';
 
 export class IndecisionApp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-        this.handleDeleteOption = this.handleDeleteOption.bind(this);
-        this.handlePick = this.handlePick.bind(this);
-        this.handleAddOption = this.handleAddOption.bind(this);
-        this.state = {
-            options: []
-        }
+    state = {
+        options: [],
+        selectedOption: undefined
     }
+
     componentDidMount() {
         try {
             const json = localStorage.getItem('options')
@@ -38,23 +34,25 @@ export class IndecisionApp extends React.Component {
         console.log('componentWillUnmount')
     }
 
-    handleDeleteOptions() {
+    handleDeleteOptions = () => {
         this.setState(() => ({ options: [] }))
     }
 
-    handleDeleteOption(optionToRemove) {
+    handleDeleteOption = (optionToRemove) => {
         this.setState((prevState) => ({
             options: prevState.options.filter((option) => optionToRemove !== option)
         }))
     }
 
-    handlePick() {
-        const options = this.state.options;
-        const randomNum = Math.floor(Math.random() * options.length);
-        alert(options[randomNum])
+    handlePick = () => {
+        const randomNum = Math.floor(Math.random() * this.state.options.length);
+        const option = this.state.options[randomNum];
+        this.setState(() => ({
+            selectedOption: option
+        }))
     }
 
-    handleAddOption(option) {
+    handleAddOption = (option) => {
         if (!option) {
             return 'Enter valid value to add item';
         } else if (this.state.options.indexOf(option) > -1) {
@@ -62,6 +60,10 @@ export class IndecisionApp extends React.Component {
         }
 
         this.setState((prevState) => ({ options: prevState.options.concat(option) }))
+    }
+
+    handleClearSelectedOption = () => {
+        this.setState(() => ({ selectedOption: undefined }));
     }
 
     render() {
@@ -81,6 +83,10 @@ export class IndecisionApp extends React.Component {
                     handleDeleteOption={this.handleDeleteOption}
                 />
                 <AddOption handleAddOption={this.handleAddOption} />
+                <OptionModal
+                    selectedOption={this.state.selectedOption}
+                    handleClearSelectedOption={this.handleClearSelectedOption}
+                />
             </div>
         )
     }
