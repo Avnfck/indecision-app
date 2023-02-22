@@ -15,6 +15,14 @@ export default {
             loader: 'babel-loader',
             test: /\.js$/,
             exclude: /node_modules/
+        },
+        {
+            test: /\.scss$/,
+            use: [
+                'style-loader',
+                'css-loader',
+                'sass-loader'
+            ]
         }]
     },
     devtool: 'cheap-module-source-map',
