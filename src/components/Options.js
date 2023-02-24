@@ -1,18 +1,24 @@
-import React from "react";
+import React from 'react';
 import { Option } from './Option.js';
 
 export const Options = (props) => (
-    <div>
-        <button className="button button--link" onClick={props.handleDeleteOptions}>Remove All</button>
-        {props.options.length === 0 && <p>Please add an option to get started!</p>}
-        {
-            props.options.map((option, index) => (
-                <Option
-                    key={index}
-                    optionText={option}
-                    handleDeleteOption={props.handleDeleteOption}
-                />
-            ))
-        }
+  <div>
+    <div className="widget-header">
+      <h3 className='widget-title'>Your Options</h3>
+      <button
+        className="button button--link"
+        onClick={props.handleDeleteOptions}
+      >
+        Remove All
+      </button>
     </div>
+    {props.options.length === 0 && <p className="widget-message">Please add an option to get started!</p>}
+    {props.options.map((option, index) => (
+      <Option
+        key={index}
+        optionText={option}
+        handleDeleteOption={props.handleDeleteOption}
+      />
+    ))}
+  </div>
 );
